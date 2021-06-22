@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { DatabaseCommunicationService } from 'src/app/services/database-communication.service';
 // import { SHOPPING_LIST } from 'src/assets/database-mockup';
 import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
 import { ListModel } from './list.model';
@@ -16,24 +17,32 @@ export class ListComponent implements OnInit {
 
   constructor(
     public popoverController: PopoverController,
-    @Inject('SHOPPING_LIST') readonly shoppingList: ListModel[] // NOTE dobra praktyka - zewnętrzne zależności wkładać za pomocą @Inject (dependency injection)
-  ) { 
+    @Inject('SHOPPING_LIST') readonly shoppingList: ListModel[],
+    private databaseService: DatabaseCommunicationService
+    // NOTE dobra praktyka - zewnętrzne zależności wkładać za pomocą @Inject (dependency injection)
+  ) {
     this.localShoppingList = shoppingList;
     this.displayShoppingList = this.localShoppingList;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.databaseService.getShoppingList().subscribe(
+      value => {
+        console.log('database value', value);
+      }
+    );
+  }
 
   // TODO wróć do teorii promisów, await
- 
+
   async presentPopover(event: any, selectedItem: ListModel) {
     const popover = await this.popoverController.create({
       component: PopoverMenuComponent,
       cssClass: 'my-custom-class',
-      event: event,
+      event,
       translucent: false,
       componentProps: {
-        selectedItem: selectedItem,
+        selectedItem,
         shoppingList : this.localShoppingList
       },
     });
@@ -69,7 +78,7 @@ export class ListComponent implements OnInit {
   sortByImportance(){
     this.displayShoppingList.sort(
       (a, b) => b.priority - a.priority
-    )
+    );
   }
 
   segmentKindChanged(event){
@@ -86,7 +95,7 @@ export class ListComponent implements OnInit {
           return arrayItem;
         }
       }
-    )
+    );
   }
 
 }
