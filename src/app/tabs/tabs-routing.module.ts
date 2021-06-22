@@ -1,34 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NatanComponent } from './natan/natan.component';
 import { TabsPage } from './tabs.page';
+import { WspolneComponent } from './wspolne/wspolne.component';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: 'czyje',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'wspolne', component: WspolneComponent
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
-      },
-      {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'natan', component: NatanComponent
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/czyje/wspolne',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/czyje/wspolne',
     pathMatch: 'full'
   }
 ];
