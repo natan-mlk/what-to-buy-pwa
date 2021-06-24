@@ -15,6 +15,9 @@ const routes: Routes = [
         path: 'natan', component: ListComponent
       },
       {
+        path: 'adrian', component: ListComponent
+      },
+      {
         path: '',
         redirectTo: '/kolibki',
         pathMatch: 'full'
