@@ -1,4 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Route } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { DatabaseCommunicationService } from 'src/app/services/database-communication.service';
 // import { SHOPPING_LIST } from 'src/assets/database-mockup';
@@ -14,15 +16,24 @@ export class ListComponent implements OnInit {
 
   localShoppingList: ListModel[];
   displayShoppingList: ListModel[];
+  selectedListOwner = '';
 
   constructor(
+    private router: Router,
     public popoverController: PopoverController,
     @Inject('SHOPPING_LIST') readonly shoppingList: ListModel[],
-    private databaseService: DatabaseCommunicationService
     // NOTE dobra praktyka - zewnętrzne zależności wkładać za pomocą @Inject (dependency injection)
+    private databaseService: DatabaseCommunicationService
   ) {
     this.localShoppingList = shoppingList;
     this.displayShoppingList = this.localShoppingList;
+    this.selectedListOwner = (this.router.url).substring(1);
+    console.log('selectedListOwner: ', this.selectedListOwner);
+    this.databaseService.getShoppingList(this.selectedListOwner).subscribe(
+      list => {
+        console.log('shopping list:  ', list);
+      }
+    );
   }
 
   ngOnInit() {

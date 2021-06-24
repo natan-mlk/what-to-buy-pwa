@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NatanComponent } from './natan/natan.component';
+import { ListComponent } from './list/list.component';
 import { TabsPage } from './tabs.page';
-import { WspolneComponent } from './wspolne/wspolne.component';
 
 const routes: Routes = [
   {
@@ -10,10 +9,10 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'kolibki', component: NatanComponent
+        path: 'kolibki', component: ListComponent
       },
       {
-        path: 'natan', component: NatanComponent
+        path: 'natan', component: ListComponent
       },
       {
         path: '',
