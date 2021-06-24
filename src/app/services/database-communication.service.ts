@@ -12,8 +12,8 @@ export class DatabaseCommunicationService {
     @Inject('DATABASE_ADDR') readonly shoppingList: string
   ) { }
 
-    getShoppingList(): Observable<any>{
-      return this.http.get(this.shoppingList + '.json');
+    getShoppingList(listOwner: string): Observable<any>{
+      return this.http.get(this.shoppingList + '/' + listOwner + '.json');
     }
 
     patchCharacterData(selectedCharacter: string, characterData: CharacterData, newMoneyAmount: number){

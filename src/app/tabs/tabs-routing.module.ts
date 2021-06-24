@@ -6,25 +6,25 @@ import { WspolneComponent } from './wspolne/wspolne.component';
 
 const routes: Routes = [
   {
-    path: 'czyje',
+    path: '',
     component: TabsPage,
     children: [
       {
-        path: 'wspolne', component: WspolneComponent
+        path: 'kolibki', component: NatanComponent
       },
       {
         path: 'natan', component: NatanComponent
       },
       {
         path: '',
-        redirectTo: '/czyje/wspolne',
+        redirectTo: '/kolibki',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/czyje/wspolne',
+    redirectTo: '/kolibki',
     pathMatch: 'full'
   }
 ];

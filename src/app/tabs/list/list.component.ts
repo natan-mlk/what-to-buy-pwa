@@ -26,11 +26,11 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.databaseService.getShoppingList().subscribe(
-      value => {
-        console.log('database value', value);
-      }
-    );
+    // this.databaseService.getShoppingList().subscribe(
+    //   value => {
+    //     console.log('database value', value);
+    //   }
+    // );
   }
 
   // TODO wróć do teorii promisów, await
