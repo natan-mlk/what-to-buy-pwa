@@ -21,28 +21,23 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     public popoverController: PopoverController,
-    @Inject('SHOPPING_LIST') readonly shoppingList: ListModel[],
+    // @Inject('SHOPPING_LIST') readonly shoppingList: ListModel[],
     // NOTE dobra praktyka - zewnętrzne zależności wkładać za pomocą @Inject (dependency injection)
     private databaseService: DatabaseCommunicationService
   ) {
-    this.localShoppingList = shoppingList;
-    this.displayShoppingList = this.localShoppingList;
+
     this.selectedListOwner = (this.router.url).substring(1);
     console.log('selectedListOwner: ', this.selectedListOwner);
     this.databaseService.getShoppingList(this.selectedListOwner).subscribe(
-      list => {
-        console.log('shopping list:  ', list);
+      (shoppingList: {toBuyList: ListModel[]}) => {
+        console.log('shopping list:  ', shoppingList);
+        this.localShoppingList = shoppingList.toBuyList;
+        this.displayShoppingList = this.localShoppingList;
       }
     );
   }
 
-  ngOnInit() {
-    // this.databaseService.getShoppingList().subscribe(
-    //   value => {
-    //     console.log('database value', value);
-    //   }
-    // );
-  }
+  ngOnInit() { }
 
   // TODO wróć do teorii promisów, await
 
