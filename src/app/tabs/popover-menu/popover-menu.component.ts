@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { DatabaseCommunicationService } from 'src/app/services/database-communication.service';
 import { ListModel } from '../list/list.model';
 
 @Component({
@@ -9,18 +10,33 @@ import { ListModel } from '../list/list.model';
 })
 export class PopoverMenuComponent implements OnInit {
 
-  selectedItem: ListModel;
-  shoppingList: ListModel[];
+  // selectedItem: ListModel;
+  // shoppingList: ListModel[];
+  @Input() selectedItem: ListModel;
+  @Input() shoppingList: ListModel[];
+  @Input() selectedListOwner: string;
 
   constructor(
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    private databaseService: DatabaseCommunicationService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('selectedItem', this.selectedItem );
+    console.log('shoppingList', this.shoppingList );
+  }
 
   changePriority(priority: number){
-    // jak usunąć z listy? Nie mam do dyspozycji ID
-    this.close(priority);
+    const indexOfSelectedElement = this.shoppingList.findIndex(
+      (listElement: ListModel) => listElement.name === this.selectedItem.name);
+    this.shoppingList[indexOfSelectedElement].priority = priority;
+
+      // TODO dodaj ownera listy
+    this.databaseService.patchListItem(this.shoppingList, this.selectedListOwner).subscribe(
+      value => {console.log('value form subsc', value);
+        this.close(priority);
+      }
+    );
   }
 
   private close(priority: number) {
