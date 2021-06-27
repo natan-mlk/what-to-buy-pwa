@@ -31,15 +31,27 @@ export class PopoverMenuComponent implements OnInit {
       (listElement: ListModel) => listElement.name === this.selectedItem.name);
     this.shoppingList[indexOfSelectedElement].priority = priority;
 
-      // TODO dodaj ownera listy
     this.databaseService.patchListItem(this.shoppingList, this.selectedListOwner).subscribe(
       value => {console.log('value form subsc', value);
-        this.close(priority);
+        this.close();
+        // TODO add handling error?
       }
     );
   }
 
-  private close(priority: number) {
+  deleteListItem(){
+    const indexOfSelectedElement = this.shoppingList.findIndex(
+      (listElement: ListModel) => listElement.name === this.selectedItem.name);
+    this.shoppingList.splice(indexOfSelectedElement, 1);
+
+    this.databaseService.patchListItem(this.shoppingList, this.selectedListOwner).subscribe(
+      value => {console.log('value form subsc', value);
+        this.close();
+      }
+    );
+  }
+
+  private close() {
     this.popoverController.dismiss(this.shoppingList, 'some role');
   }
 
