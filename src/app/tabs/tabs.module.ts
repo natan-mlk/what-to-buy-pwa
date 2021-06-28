@@ -8,6 +8,7 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 import { TabsPage } from './tabs.page';
 import { ListComponent } from './list/list.component';
 import { PopoverMenuComponent } from './popover-menu/popover-menu.component';
+import { AddItemMenuComponent } from './add-item-menu/add-item-menu.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { PopoverMenuComponent } from './popover-menu/popover-menu.component';
   declarations: [
     TabsPage,
     ListComponent,
-    PopoverMenuComponent
+    PopoverMenuComponent,
+    AddItemMenuComponent
   ]
 })
 export class TabsPageModule {}

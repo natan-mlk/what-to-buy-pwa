@@ -1,8 +1,9 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Route } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { ActionSheetController, PopoverController } from '@ionic/angular';
 import { DatabaseCommunicationService } from 'src/app/services/database-communication.service';
+import { AddItemMenuComponent } from '../add-item-menu/add-item-menu.component';
 // import { SHOPPING_LIST } from 'src/assets/database-mockup';
 import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
 import { ListModel } from './list.model';
@@ -20,8 +21,9 @@ export class ListComponent implements OnInit {
 
   constructor(
     public popoverController: PopoverController,
+    public actionSheetController: ActionSheetController,
     private router: Router,
-    private databaseService: DatabaseCommunicationService
+    private databaseService: DatabaseCommunicationService,
   ) {
 
     this.selectedListOwner = (this.router.url).substring(1);
@@ -38,10 +40,10 @@ export class ListComponent implements OnInit {
 
   // TODO wróć do teorii promisów, await
 
-  async presentPopover(event: any, selectedItem: ListModel) {
+  async openImportanceMenu(event: any, selectedItem: ListModel) {
     const popover = await this.popoverController.create({
       component: PopoverMenuComponent,
-      cssClass: 'my-custom-class',
+      cssClass: 'importance-menu-popover',
       event,
       translucent: false,
       componentProps: {
@@ -55,6 +57,10 @@ export class ListComponent implements OnInit {
     popover.onDidDismiss().then((result) => {
       console.log(result);
     });
+  }
+
+  addNewListItem(){
+    this.openAddListItemPopover();
   }
 
   setColor(priority){
@@ -88,6 +94,24 @@ export class ListComponent implements OnInit {
   segmentKindChanged(event){
     const sortingKey = event.detail.value;
     this.filterByKind(sortingKey);
+  }
+
+  private async openAddListItemPopover() {
+    const popover = await this.popoverController.create({
+      component: AddItemMenuComponent,
+      cssClass: 'new-list-item-popover',
+      event,
+      translucent: false,
+      componentProps: {
+        shoppingList : this.localShoppingList,
+        selectedListOwner: this.selectedListOwner
+      },
+    });
+    await popover.present();
+
+    popover.onDidDismiss().then((result) => {
+      console.log(result);
+    });
   }
 
   private filterByKind(sortingKey) {

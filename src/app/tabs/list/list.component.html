@@ -1,7 +1,3 @@
-<!-- <ion-content> -->
-    <!-- <div slot="fixed">
-      <h1>Fixed Content</h1>
-    </div> -->
 <div class="list_sorting-panel">
   <ion-segment (ionChange)="segmentKindChanged($event)" color='secondary' value="all">
     <ion-segment-button value="all">
@@ -21,10 +17,11 @@
 
 <div class="list_toolbar">
   <ion-item>
-    <ion-button slot="end" size="small" color="secondary">
+    <ion-button slot="end" size="small" color="secondary" (click)="addNewListItem()">
       <ion-icon name="add"></ion-icon>
       Nowy
     </ion-button>
+    <!-- DODAJ dodawanie nowego przedmiotu. Chyba w popover albo ion-action-sheet. Musi mieć pokazanie błędu jeśli przedmiot o takiej nazwie jest już na liście tego ownera. Może niech śledzi input - jego zmianę wartości. Pod inputem powinny być przyciski pokazujące priority i bez ich wybrania nie można wysłać formularza - ion-radio albo jako bajer ion-range -->
     <ion-button slot="end" size="small" color="danger" (click)="sortByImportance()">
       <ion-icon name="arrow-up"></ion-icon>
     </ion-button>
@@ -35,7 +32,7 @@
   <ng-container *ngFor="let item of displayShoppingList" >
     <ion-item [color]="setColor(item.priority)">
     <ion-icon slot="start" [name]="getIconName(item.kind)"></ion-icon> 
-    <ion-icon slot="end" name="ellipsis-vertical-outline" (click)="presentPopover($event, item)"></ion-icon>
+    <ion-icon slot="end" name="ellipsis-vertical-outline" (click)="openImportanceMenu($event, item)"></ion-icon>
     <ion-label>{{item.name}}</ion-label>
   </ion-item>
   </ng-container>
