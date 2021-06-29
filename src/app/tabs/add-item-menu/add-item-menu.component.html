@@ -1,32 +1,40 @@
 <div style="margin: 10px 20px 20px 0">
+  <form [formGroup]="formGroup">
 
-  <ion-item>
-    <ion-input placeholder="Enter Input"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-input placeholder="Enter Input" formControlName="itemName"></ion-input>
+    </ion-item>
+    
+    <ion-item lines="none">
+      <ion-range min="0" max="2" step="1" value="1" snaps color="danger" formControlName="priority">
+        <ion-icon slot="start" size="small" color="danger" name="thermometer"></ion-icon>
+        <ion-icon slot="end" color="danger" name="thermometer"></ion-icon>
+      </ion-range>
+    </ion-item>
 
-  <ion-item>
-    <ion-range min="0" max="2" step="1" value="1" snaps color="danger" (ionChange)="valueChange($event)">
-      <ion-icon slot="start" size="small" color="danger" name="thermometer"></ion-icon>
-      <ion-icon slot="end" color="danger" name="thermometer"></ion-icon>
-    </ion-range>
-  </ion-item>
-  <!-- <ion-list>
-    <ion-radio-group value="biff">
-      <ion-item>
-        <ion-label>Biff</ion-label>
-        <ion-radio slot="start" value="biff"></ion-radio>
-      </ion-item>
-      
-      <ion-item>
-        <ion-label>Griff</ion-label>
-        <ion-radio slot="start" value="griff"></ion-radio>
-      </ion-item>
-      
-      <ion-item>
-        <ion-label>Buford</ion-label>
-        <ion-radio slot="start" value="buford"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list> -->
+    <ion-list>
+      <ion-radio-group value="food" formControlName="kind">
+        <ion-item>
+          <ion-label>Jedzenie</ion-label>
+          <ion-radio slot="start" value="food"></ion-radio>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Kosmetyki</ion-label>
+          <ion-radio slot="start" value="cosmetics"></ion-radio>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Inne</ion-label>
+          <ion-radio slot="start" value="other"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <ion-item lines="none">
+      <ion-button slot="end" size="small" 
+        [disabled]="isAddButtonDisabled"
+        (click)="addNewListItem()">Dodaj</ion-button>
+    </ion-item>
+  </form>
 </div>
   

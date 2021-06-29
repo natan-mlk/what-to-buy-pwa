@@ -1,7 +1,7 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
@@ -15,7 +15,9 @@ import { AddItemMenuComponent } from './add-item-menu/add-item-menu.component';
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    FormsModule,
+    ReactiveFormsModule // NOTE rective forms had to be imported in this module because importing on app.module didn't work.
   ],
   declarations: [
     TabsPage,

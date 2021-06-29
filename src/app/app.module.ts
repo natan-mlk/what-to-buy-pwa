@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { SHOPPING_LIST } from '../assets/database-mockup';
 import { DATABASE_ADDR } from '../assets/database-addr';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
