@@ -1,6 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { DatabaseCommunicationService } from 'src/app/services/database-communication.service';
+import { ListModel } from '../list/list.model';
 
 @Component({
   selector: 'app-add-item-menu',
@@ -9,26 +12,39 @@ import { Subscription } from 'rxjs';
 })
 export class AddItemMenuComponent implements OnInit, OnDestroy {
 
+  @Input() shoppingList: ListModel[];
+  @Input() selectedListOwner: string;
+
   formValueSubscription: Subscription = Subscription.EMPTY;
   formStateSubscription: Subscription = Subscription.EMPTY;
 
   formGroup = new FormGroup({
-    itemName: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-    priority: new FormControl(),
     kind: new FormControl(),
+    name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+    priority: new FormControl(),
   });
 
   isAddButtonDisabled = true;
 
-  constructor() { }
+  constructor(
+    private popoverController: PopoverController,
+    private databaseService: DatabaseCommunicationService
+  ) { }
 
   ngOnInit() {
     this.subscribeToFormValue();
     this.subscribeToFormStatus();
+    this.setInitialFormValue();
   }
 
   addNewListItem(){
-
+    this.shoppingList.unshift(this.formGroup.value);
+    console.log('nwe list', this.shoppingList);
+    this.databaseService.patchListItem(this.shoppingList, this.selectedListOwner).subscribe(
+      value => {
+        this.close();
+      }
+    );
   }
 
   ngOnDestroy(){
@@ -36,21 +52,25 @@ export class AddItemMenuComponent implements OnInit, OnDestroy {
     this.formStateSubscription.unsubscribe();
   }
 
-  private subscribeToFormValue(): void {
-        this.formValueSubscription = this.formGroup.valueChanges.subscribe(
-      value => console.log(value)
-    );
+  private setInitialFormValue(){
     this.formGroup.setValue({
-      itemName: '',
+      name: '',
       priority: 0,
       kind: 'food'
     });
   }
 
+  private subscribeToFormValue(): void {
+        this.formValueSubscription = this.formGroup.valueChanges.subscribe(
+      (value: ListModel) => {
+        console.log(value);
+      }
+    );
+  }
+
   private subscribeToFormStatus(): void {
     this.formStateSubscription = this.formGroup.statusChanges.subscribe(
       (state: string) => {
-        console.log(state);
         if(state === 'INVALID') {
           this.isAddButtonDisabled = true;
         } else {
@@ -58,5 +78,9 @@ export class AddItemMenuComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  private close() {
+    this.popoverController.dismiss(this.shoppingList);
   }
 }

@@ -27,13 +27,7 @@ export class ListComponent implements OnInit {
   ) {
 
     this.selectedListOwner = (this.router.url).substring(1);
-    this.databaseService.getShoppingList(this.selectedListOwner).subscribe(
-      (shoppingList: {toBuyList: ListModel[]}) => {
-        console.log('shopping list:  ', shoppingList);
-        this.localShoppingList = shoppingList.toBuyList;
-        this.displayShoppingList = this.localShoppingList;
-      }
-    );
+    this.getShoppingListFromDatbase();
   }
 
   ngOnInit() { }
@@ -54,8 +48,15 @@ export class ListComponent implements OnInit {
     });
     await popover.present();
 
+    // TODO wydzielić metodę odświeżenia danych po jakimś czasie, ta z setTimeout
     popover.onDidDismiss().then((result) => {
-      console.log(result);
+      console.log('wynik zamknięcia okna', result);
+      if (result.role !== 'backdrop'){
+        setTimeout(()=>
+        this.getShoppingListFromDatbase(),
+        1000
+      );
+      }
     });
   }
 
@@ -96,6 +97,16 @@ export class ListComponent implements OnInit {
     this.filterByKind(sortingKey);
   }
 
+  private getShoppingListFromDatbase(){
+    this.databaseService.getShoppingList(this.selectedListOwner).subscribe(
+      (shoppingList: {toBuyList: ListModel[]}) => {
+        console.log('shopping list:  ', shoppingList);
+        this.localShoppingList = shoppingList.toBuyList;
+        this.displayShoppingList = this.localShoppingList;
+      }
+    );
+  }
+
   private async openAddListItemPopover() {
     const popover = await this.popoverController.create({
       component: AddItemMenuComponent,
@@ -110,7 +121,14 @@ export class ListComponent implements OnInit {
     await popover.present();
 
     popover.onDidDismiss().then((result) => {
-      console.log(result);
+      console.log('wynik zamknięcia okna', result); // {data: undefined, role: "backdrop"}
+      if (result.role !== 'backdrop'){
+        setTimeout(()=>
+          this.getShoppingListFromDatbase(),
+          1000
+        );
+
+      }
     });
   }
 
