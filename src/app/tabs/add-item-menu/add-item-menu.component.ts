@@ -25,7 +25,7 @@ export class AddItemMenuComponent implements OnInit, OnDestroy {
   });
 
   isAddButtonDisabled = true;
-
+  chosenPriority = 'primary';
   constructor(
     private popoverController: PopoverController,
     private databaseService: DatabaseCommunicationService
@@ -63,7 +63,7 @@ export class AddItemMenuComponent implements OnInit, OnDestroy {
   private subscribeToFormValue(): void {
         this.formValueSubscription = this.formGroup.valueChanges.subscribe(
       (value: ListModel) => {
-        console.log(value);
+        this.setColorByPriority(value.priority);
       }
     );
   }
@@ -80,7 +80,23 @@ export class AddItemMenuComponent implements OnInit, OnDestroy {
     );
   }
 
-  private close() {
+  private close(): void {
     this.popoverController.dismiss(this.shoppingList);
+  }
+
+  private setColorByPriority(priority: number): void {
+    switch(priority) {
+      case 0:
+        this.chosenPriority = 'primary';
+      break;
+
+      case 1:
+        this.chosenPriority = 'warning';
+      break;
+
+      case 2:
+        this.chosenPriority = 'danger';
+      break;
+    }
   }
 }
