@@ -30,9 +30,9 @@
 
 <ion-list style="height: 100%; overflow: auto;">
   <ng-container *ngFor="let item of displayShoppingList" >
-    <ion-item [color]="setColor(item.priority)">
-    <ion-icon slot="start" [name]="getIconName(item.kind)"></ion-icon> 
-    <ion-icon slot="end" name="ellipsis-vertical-outline" (click)="openImportanceMenu($event, item)"></ion-icon>
+    <ion-item [color]="setColor(item.priority)" *ngIf="item.name !=='blanc item'">
+      <ion-icon slot="start" [name]="getIconName(item.kind)"></ion-icon> 
+      <ion-icon slot="end" name="ellipsis-vertical-outline" (click)="openImportanceMenu($event, item)"></ion-icon>
     <ion-label>{{item.name}}</ion-label>
   </ion-item>
   </ng-container>
