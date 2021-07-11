@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { TabsPage } from './tabs.page';
+import { TodoListComponent } from './todo-list/todo-list.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
       },
       {
         path: 'adrian', component: ListComponent
+      },
+      {
+        path: 'todo', component: TodoListComponent
       },
       {
         path: '',
