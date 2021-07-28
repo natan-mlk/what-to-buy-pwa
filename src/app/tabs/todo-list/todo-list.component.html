@@ -1,3 +1,20 @@
-<p>
-  todo-list works!
-</p>
+<div class="list_toolbar">
+  <ion-item>
+    <ion-button slot="end" size="small" color="secondary" (click)="addNewListItem()">
+      <ion-icon name="add"></ion-icon>
+      Nowy
+    </ion-button>
+    <ion-button slot="end" size="small" color="danger" (click)="sortByImportance()">
+      <ion-icon name="arrow-up"></ion-icon>
+    </ion-button>
+  </ion-item>
+</div>
+
+<ion-list style="height: 100%; overflow: auto;">
+  <ng-container *ngFor="let item of displayTodoList" >
+    <ion-item [color]="setColor(item.priority)" *ngIf="item.task !=='blanc item'">
+      <ion-icon slot="end" name="ellipsis-vertical-outline" (click)="openImportanceMenu($event, item)"></ion-icon>
+    <ion-label>{{item.task}}</ion-label>
+  </ion-item>
+  </ng-container>
+</ion-list>

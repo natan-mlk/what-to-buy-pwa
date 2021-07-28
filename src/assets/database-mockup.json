@@ -1,30 +1,84 @@
 {
-    "kolibki": {
-        "toBuyList": [
-            {
-                "name": "blanc item",
-                "priority": 0,
-                "kind": "other"
-            }
-        ]
+    "adrian" : {
+      "toBuyList" : [ {
+        "kind" : "other",
+        "name" : "Przegląd Zdrowotny",
+        "priority" : 1
+      }, {
+        "kind" : "other",
+        "name" : "Pasportu na certyfikat",
+        "priority" : 2
+      }, {
+        "kind" : "other",
+        "name" : "blanc item",
+        "priority" : 0
+      } ]
+    },
+    "kolibki" : {
+      "toBuyList" : [ {
+        "kind" : "cosmetics",
+        "name" : "stop-the-water-while-using-me.com",
+        "priority" : 1
+      }, {
+        "kind" : "other",
+        "name" : "Stojaki do talerzy na półkę",
+        "priority" : 2
+      }, {
+        "kind" : "other",
+        "name" : "2 reflektory Hue",
+        "priority" : 1
+      }, {
+        "kind" : "other",
+        "name" : "Filtr do roomby",
+        "priority" : 0
+      }, {
+        "kind" : "food",
+        "name" : "Lody",
+        "priority" : 0
+      }, {
+        "kind" : "other",
+        "name" : "Nabłyszczacz do zmywarki",
+        "priority" : 0
+      }, {
+        "kind" : "other",
+        "name" : "Tabletki do zmywarki",
+        "priority" : 0
+      }, {
+        "kind" : "other",
+        "name" : "Worki na śmieci",
+        "priority" : 0
+      }, {
+        "kind" : "other",
+        "name" : "Papier kuchenny",
+        "priority" : 0
+      }, {
+        "kind" : "other",
+        "name" : "Papier toaletowy",
+        "priority" : 0
+      }, {
+        "kind" : "other",
+        "name" : "blanc item",
+        "priority" : 0
+      } ]
     },
     "natan" : {
-        "toBuyList": [
-            {
-                "name": "blanc item",
-                "priority": 0,
-                "kind": "other"
-            }
-        ]
+      "toBuyList" : [ {
+        "kind" : "other",
+        "name" : "35 na 52",
+        "priority" : 1
+      }, {
+        "kind" : "other",
+        "name" : "blanc item",
+        "priority" : 0
+      } ]
     },
-    "adrian" : {
-        "toBuyList": [
-            {
-                "name": "blanc item",
-                "priority": 0,
-                "kind": "other"
-            }
-        ]
-    }
-    
-}
+    "todo" : [ {
+      "priority" : 0,
+      "task" : "blanc item"
+    },
+    {
+        "priority" : 0,
+        "task" : "test task 1"
+      } ]
+  }
+  

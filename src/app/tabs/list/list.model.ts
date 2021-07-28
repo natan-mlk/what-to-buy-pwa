@@ -9,3 +9,8 @@ export interface KindModel {
         cosmetics: number;
         other: string;
 }
+
+export interface TodoModel {
+        priority: number;
+        task: string;
+}

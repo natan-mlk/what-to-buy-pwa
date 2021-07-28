@@ -15,8 +15,8 @@ import { ListModel } from './list.model';
 })
 export class ListComponent implements OnInit {
 
-  localShoppingList: ListModel[];
-  displayShoppingList: ListModel[];
+  localShoppingList: ListModel[]; // zapamiętane dane ściągnięcie z serwera
+  displayShoppingList: ListModel[]; // dynamicznie zmieniane do celów filtorwania, sortowania
   selectedListOwner = '';
 
   constructor(
