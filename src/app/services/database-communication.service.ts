@@ -12,7 +12,6 @@ export class DatabaseCommunicationService {
     private http: HttpClient,
     @Inject('DATABASE_ADDR') readonly databaseAddr: string
     // NOTE dobra praktyka - zewnętrzne zależności wkładać za pomocą @Inject (dependency injection)
-
   ) { }
 
     getShoppingList(listOwner: string): Observable<any>{
@@ -28,7 +27,16 @@ export class DatabaseCommunicationService {
         this.databaseAddr + '/' + listOwner + '.json',
         {
           toBuyList : shoppingList,
-      }
+        }
+      );
+    }
+
+    patchTodoListItem(todoList: TodoModel[]){
+      return this.http.patch(
+        this.databaseAddr + '/todo.json',
+        {
+          ...todoList,
+        }
       );
     }
 }

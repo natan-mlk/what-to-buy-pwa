@@ -10,6 +10,7 @@ import { ListComponent } from './list/list.component';
 import { PopoverMenuComponent } from './popover-menu/popover-menu.component';
 import { AddItemMenuComponent } from './add-item-menu/add-item-menu.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoPopoverMenuComponent } from './todo-popover-menu/todo-popover-menu.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { TodoListComponent } from './todo-list/todo-list.component';
     ListComponent,
     PopoverMenuComponent,
     AddItemMenuComponent,
-    TodoListComponent
+    TodoListComponent,
+    TodoPopoverMenuComponent
   ]
 })
 export class TabsPageModule {}
